@@ -1,55 +1,39 @@
-/* 
-function calcularEdad(anioNacimiento){
+function agregarAuto(){
 
-    var edadTotal = 2021 - anioNacimiento -1; 
-    console.log(edadTotal);
-    
-    edadTotal =cumplio(edadTotal);
-    return edadTotal;
+function Autos(marca, modelo , anio){/* CREO EL CONSTRUCTOR */
+    this.marca = marca;
+    this.modelo = modelo;
+    this.anio = anio;
+
+}
+/* CREO LAS VARIABLES PARA AGREGAR */
+var capturadorMarca = (prompt("pone tu marca"));
+var capturadorModelo = (prompt("pone tu modelo"));
+var capturadorAnio = (prompt("pone tu anio"));
+
+PrimerAuto = new Autos (capturadorMarca, capturadorModelo, capturadorAnio);
+console.log(PrimerAuto);
+/* AGREGO LAS VARIABLES AL OBJETO */
+agregar();
 }
 
-function cumplio( edadTotal){
-    var cumpliste = prompt("cumpliste aÑos?");
-    if(cumpliste == "si"){
-        edadTotal = edadTotal +1;
-    } else{
-        edadTotal = edadTotal;
-    }
-    console.log("tu edad es " + edadTotal);
-    return edadTotal;
+/* CREO LA BASE DE DATOS */
+
+BaseDatosAuto = [];
+
+/* AGREGO LAS COSAS DESDE EL OBJETO A LA BASE DE DATOS */
+
+function agregar(){
+    BaseDatosAuto.push(PrimerAuto);
+    console.log(BaseDatosAuto)
 }
 
-var edad = calcularEdad(parseInt(prompt("ingresa el aÑo en que naciste")));
-console.log(edad); */
+agregarAuto();
 
-function pedirDatos(){
-    var marca = prompt("ingresa la marca de tu auto");
-    var modelo = prompt("ingresa el modelo de tu auto");
-    var anio = prompt("ingresa el anio de tu auto");
-    var PrimerAuto = new Autos(marca,modelo,anio);
-    return PrimerAuto;
+/* PREGUNTO SI QUIERE AGREGAR OTRO AUTO */
+
+otro = prompt("quiere agregar otro auto ? ")  ;
+while ( otro == "si"){
+    agregarAuto();
+    otro = prompt("quiere agregar otro auto");
 }
- function Autos (marca, modelo, anio){
-     this.marca=marca;
-     this.modelo=modelo;
-     this.anio=anio;
-     
-     this.cambiarModelo = function(){
-        var cambiarModelo =(prompt("queres cambiar el modelo SI/NO"))
-            if( cambiarModelo == "si"){
-            this.anio=(prompt("ingresa el nuevo modelo"))    
-        }
-    }
-
-     this.cambiarAnio = function(){
-        var cambioAnio =(prompt("queres cambiar el anio SI/NO"))
-            if(cambioAnio == "si"){
-            this.anio=(prompt("ingresa el nuevo anio"))    
-        }
-    }
-}
- var PrimerAuto = pedirDatos();
- console.log(PrimerAuto);
- PrimerAuto.cambiarAnio();
- console.log(PrimerAuto);
-
