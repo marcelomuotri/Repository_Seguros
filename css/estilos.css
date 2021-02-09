@@ -78,7 +78,6 @@
 .contenedorForm .codigoPostal {
   margin-top: 20px;
   display: inline-block;
-  padding: 10px;
   padding: 0px;
   margin-left: 10px;
   font-family: Work Sans; }
@@ -92,4 +91,103 @@
   margin-top: 3%;
   background-color: #203d7c;
   font-size: 150%;
-  width: 200px; }
+  width: 200px; 
+  margin-bottom: 30px;}
+
+
+  
+
+  /* ACA EMPIEZA EL FORMULARIO DE ABAJO */
+  
+.contenedorDos{
+  width: 97%;
+  margin: auto;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  position: fixed;
+}
+
+.tabla{
+  width: 33%;
+  height: 100%;
+  margin: auto;
+  border-radius: 4px;
+  text-align: center;
+  flex-grow: 1;
+  color: #343759;
+}
+
+.tabla>h2{
+  font-size:30px;
+  margin-bottom:35px;
+}
+
+.tabla img{
+  width: 64px;
+  margin-bottom:35px;
+}
+
+.tabla > h3{
+  font-size:30px;
+  margin-bottom: 20px;
+}
+
+.tabla > p{
+  display: block;
+  margin-bottom:20px;
+}
+
+.boton{
+  display:inline-block;
+  width: 150px;
+  padding:12px;
+  background: #203d7c;
+  text-decoration: none;
+  color: white;
+  border-radius: 100px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  margin: auto;
+}
+
+.tabla:hover{
+  background: #343759;
+  color: #f1f1f2;
+  transition: .5s all;
+  transform: scale(1.025);
+  cursor: pointer;
+}
+
+@media screen and (max-width: 1000px){
+  .tabla{
+      width: 45%;
+      max-width:none;
+      margin-bottom: 40px;
+      flex-grow: initial;
+  }
+}
+
+@media screen and (max-width: 700px){
+  .tabla{
+      width: 45%;
+      padding:30px;
+  }
+  .tabla > h2{
+      margin-top:40px;
+  }
+}
+
+@media screen and (max-width:550px){
+  .tabla{
+      width: 85%;
+      padding: 20px;
+  }
+}
+.iconoPeque{
+  width: 8%!important;
+
+}
