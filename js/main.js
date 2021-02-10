@@ -152,8 +152,35 @@ function recibirAnios(numeroModelo, numeroAnio){// ESTA FUNCION RECIBE 2 COORDEN
 /////////////evento click para el boton
 document.getElementById("botonCotizar").addEventListener("click", buscarModelosDos);
 
-function buscarModelosDos() { 
+function guardarCompra(){
 
+   
+   
+   marca = document.getElementById("exampleFormControlSelect1").value;
+   modelo = document.getElementById("exampleFormControlSelect2").value;
+   anio = document.getElementById("exampleFormControlSelect3").value;
+   nombre = document.getElementById("nombre").value;
+   apellido = document.getElementById("apellido").value;
+   telefono = document.getElementById("telefono").value;
+   email = document.getElementById("email").value;
+   edad = document.getElementById("edad").value;
+
+      function Carrito(nombre, productos){
+         this.nombre = nombre;
+         this.productos = productos;
+      }
+         var carrito = new Carrito ( apellido, [ marca, modelo, anio, nombre, apellido, telefono, email, edad ] )
+         
+         var carritoJSON = JSON.stringify(carrito)
+      
+
+
+   sessionStorage.setItem(apellido, carritoJSON)
+
+}
+
+function buscarModelosDos() { 
+   guardarCompra();
    var buscarMarca = document.getElementById("exampleFormControlSelect1").value;
 
    for (i=0; i<BaseDatosAuto.length; i++){ // SON PARECIDAS A LAS FUNCIONES DE ARRIBA, ESTA ME VA A BUSCAR EL QUE POSICION DEL ARRAY ESTA LA MARCA
@@ -201,14 +228,50 @@ function realizarCotizacion(cotizacion){
    precioTres.innerHTML="$ " + (cotizacionTotal * 1.20).toFixed(2);
 
    var cambiarTexto = document.getElementById("botonCotizar")
-   console.log(cambiarTexto.innerHTML);
-   cambiarTexto.innerHTML = "hola"
-   if(cambiarTexto == "Cotizar"){
-      
-
+   if(cambiarTexto.innerHTML == "Cotizar"){
    cambiarTexto.innerHTML = "Volver"
+   
    } else {
       cambiarTexto.innerHTML = "Cotizar"
+      document.getElementById("contenedorPosition").style.position = "fixed"; 
    }
       ////ACA PODRIA HACER UN IF, PARA QUE VUELVA ATRAS Y SE PONGA FIXED DENUEVO    
+}
+
+document.getElementById("botonRecuperar").addEventListener("click", recuperarUsuario);
+
+function recuperarUsuario(){
+   var nombreCargar= prompt("que nombre queres cargar");
+   var carritoGuardado = JSON.parse( sessionStorage.getItem(nombreCargar));
+   console.log(carritoGuardado)
+   console.log(carritoGuardado.productos[3])
+
+
+   marca = document.getElementById("exampleFormControlSelect1");
+   modelo = document.getElementById("exampleFormControlSelect2");
+   anio = document.getElementById("exampleFormControlSelect3");
+   nombre = document.getElementById("nombre");
+   apellido = document.getElementById("apellido");
+   telefono = document.getElementById("telefono");
+   email = document.getElementById("email");
+   edad = document.getElementById("edad");
+
+   marca.value = carritoGuardado.productos[0];
+   buscarModelos();
+   modelo.value = carritoGuardado.productos[1];
+   buscarAnios();
+   anio.value = carritoGuardado.productos[2];
+   nombre.value = carritoGuardado.productos[3];
+   apellido.value = carritoGuardado.productos[4];
+   telefono.value = carritoGuardado.productos[5];
+   email.value = carritoGuardado.productos[6];
+   edad.value = carritoGuardado.productos[7];
+   
+   
+   
+   
+   
+   
+   
+
 }
