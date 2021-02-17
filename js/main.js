@@ -1,4 +1,3 @@
-
 function rango(primerAnio, segundoAnio) {
    var primerAnio = primerAnio;
    var segundoAnio = segundoAnio;
@@ -65,62 +64,54 @@ quintoAuto = new Autos("FIAT", [
 BaseDatosAuto = [primerAuto, segundoAuto, tercerAuto, cuartoAuto, quintoAuto];
 
 
-var select = document.getElementById("exampleFormControlSelect1"); //Seleccionamos el select
+var select = $("#exampleFormControlSelect1"); //Seleccionamos el select
 
 for (var i = 0; i < BaseDatosAuto.length; i++) {
    var option = document.createElement("option"); //Creamos la opcion
    option.innerHTML = BaseDatosAuto[i].marca; //Metemos el texto en la opción
-   select.appendChild(option); //Metemos la opción en el select
+   $(select).append(option); //Metemos la opción en el select
 }
 
 
 
+function buscarModelos(){
+   //ESTA FUNCION RECORRE EL ARRAY MARCAS, BUSCANDO UNA COINCIDENCIA EN EL VALOR INGRESADO. CUANDO LO ENCUENTRA, ENVIA LA POSICION DEL ARRAY
 
-///////////// evento onchange para cargar marca y modelo
+var buscarMarca = $("#exampleFormControlSelect1").val()
+   
 
-
-document.getElementById("exampleFormControlSelect1").addEventListener("change", buscarModelos);
-
-function buscarModelos() { //ESTA FUNCION RECORRE EL ARRAY MARCAS, BUSCANDO UNA COINCIDENCIA EN EL VALOR INGRESADO. CUANDO LO ENCUENTRA, ENVIA LA POSICION DEL ARRAY
-
-   var buscarMarca = document.getElementById("exampleFormControlSelect1").value;
 
    for (i=0; i<BaseDatosAuto.length; i++){ // ESTE FOR , BUSCA UNA COINCIDENCIA ENTRE LAS 5 MARCAS Y LO QUE ESCRIBIO EL NUMERO, CUANDO LO ENCUENTRA, LO DEVUELVE A RECBIR MODELO
       if(buscarMarca == BaseDatosAuto[i].marca){
       recibirModelos(i);
       }
    }
-
-
+   
 }
-
+   
 function recibirModelos(numero){ //ESTA FUNCION RECIBE EL VALOR DE BUSCARMODELOS Y DEVUELVE LOS MODELOS CORRESPONDIENTES A ESA MARCA
-   var select = document.getElementById("exampleFormControlSelect2"); //Seleccionamos el select padre
-   select.innerHTML="" //VACIO EL SELECT
-   var optionSeleccionar = document.createElement("option"); //Creamos la opcion
-            optionSeleccionar.innerHTML = "SELECCIONAR"; //Metemos el texto en la opción
-            select.appendChild(optionSeleccionar); //Metemos la opción en el select
+   var select = $("#exampleFormControlSelect2"); //Seleccionamos el select padre
 
+   select.innerHTML="" //VACIO EL SELECT
+   
 
     for (var i = 0; i < BaseDatosAuto[numero].modelo.length; i++) {
        var option = document.createElement("option"); //Creamos la opcion
        option.innerHTML = BaseDatosAuto[numero].modelo[i].modelo; //Metemos el texto en la opción
-       select.appendChild(option); //Metemos la opción en el select
+       $(select).append(option); //Metemos la opción en el select
        }   
    }
 
 
-///////////// funcion para tomar modelos y cargar anios
+$("#exampleFormControlSelect1").change ( buscarModelos)
 
-
-
-
-document.getElementById("exampleFormControlSelect2").addEventListener("change", buscarAnios);
+   
+   
+///////////// funcion para tomar modelos y cargar anio
 
 function buscarAnios() { // ESTA FUNCION RECORRE TODOS LOS MODELOS Y CUANDO ENCUENTRA EL QUE COINCIDE CON EL TEXTO INGRESADO POR EL USUARIO, ENVIA LAS COORDENADAS A RECIBIRANIOS
 
-   var buscarAnio = document.getElementById("exampleFormControlSelect2").value;
-
+   var buscarAnio = $("#exampleFormControlSelect2").val();
    //ESTE ES UN FOR DENTRO DE OTRO, EL DE AFUERA RECORRE UNA MARCA Y DENTRO RECORRE LOS MODELOS DE ESA MARCA, SI EL MODELO NO COINCIDE, EL FOR GRANDE PASA A LA SIGUIENTE MARCA Y ASI LOS VA BUSCANDO, CUANDO ENCUENTRA, DEVUELVE LAS COORDENADAS
    for(j=0; j<BaseDatosAuto.length; j++)   
       for (i=0; i<5; i++){ // TOTAL DE AUTOS
@@ -132,38 +123,37 @@ function buscarAnios() { // ESTA FUNCION RECORRE TODOS LOS MODELOS Y CUANDO ENCU
 
 function recibirAnios(numeroModelo, numeroAnio){// ESTA FUNCION RECIBE 2 COORDENADAS PARA IR A BUSCAR LOS ANIOS DE LA MARCA Y MODELO QUE RECIBE
    
-   var select = document.getElementById("exampleFormControlSelect3"); //Seleccionamos el select padre
-        select.innerHTML="" //VACIO EL SELECT
-        var optionSeleccionar = document.createElement("option"); //Creamos la opcion
-            optionSeleccionar.innerHTML = "SELECCIONAR"; //Metemos el texto en la opción
-            select.appendChild(optionSeleccionar); //Metemos la opción en el select
-
+   var select = $("#exampleFormControlSelect3"); //Seleccionamos el select padre
+        
+      select.innerHTML="" //VACIO EL SELECT
+        
 
          for (var i = 0; i < BaseDatosAuto[numeroModelo].modelo[numeroAnio].anios.length; i++) {
             var option = document.createElement("option"); //Creamos la opcion
             option.innerHTML = BaseDatosAuto[numeroModelo].modelo[numeroAnio].anios[i]; //Metemos el texto en la opción
-            select.appendChild(option); //Metemos la opción en el select
+            $(select).append(option); //Metemos la opción en el select
          }
    }
 
-
+//evento para buscar anios de cada modelo
+$("#exampleFormControlSelect2").change(buscarAnios)
    
 
 /////////////evento click para el boton
-document.getElementById("botonCotizar").addEventListener("click", buscarModelosDos);
+$("#botonCotizar").click(buscarModelosDos);
 
 function guardarCompra(){
 
    
    
-   marca = document.getElementById("exampleFormControlSelect1").value;
-   modelo = document.getElementById("exampleFormControlSelect2").value;
-   anio = document.getElementById("exampleFormControlSelect3").value;
-   nombre = document.getElementById("nombre").value;
-   apellido = document.getElementById("apellido").value;
-   telefono = document.getElementById("telefono").value;
-   email = document.getElementById("email").value;
-   edad = document.getElementById("edad").value;
+   var marca = $("#exampleFormControlSelect1").val();
+   var modelo = $("#exampleFormControlSelect2").val();
+   var anio = $("#exampleFormControlSelect3").val();
+   var nombre = $("#nombre").val();
+   var apellido = $("#apellido").val();
+   var telefono = $("#telefono").val();
+   var email = $("#email").val();
+   var edad = $("#edad").val();
 
       function Carrito(nombre, productos){
          this.nombre = nombre;
@@ -181,7 +171,7 @@ function guardarCompra(){
 
 function buscarModelosDos() { 
    guardarCompra();
-   var buscarMarca = document.getElementById("exampleFormControlSelect1").value;
+   var buscarMarca = $("#exampleFormControlSelect1").val();
 
    for (i=0; i<BaseDatosAuto.length; i++){ // SON PARECIDAS A LAS FUNCIONES DE ARRIBA, ESTA ME VA A BUSCAR EL QUE POSICION DEL ARRAY ESTA LA MARCA
       if(buscarMarca == BaseDatosAuto[i].marca){      
@@ -194,7 +184,7 @@ function buscarModelosDos() {
 
 function recibirModelosDos(numero){ 
 
-   var buscarModelo = document.getElementById("exampleFormControlSelect2").value;
+   var buscarModelo = $("#exampleFormControlSelect2").val();
    
 
     for (var i = 0; i < BaseDatosAuto[numero].modelo.length; i++) { // Y ESTA ME VA A BUSCAR EN QUE POSICION ESTA EL MODELO
@@ -209,36 +199,32 @@ function recibirModelosDos(numero){
    }
 function realizarCotizacion(cotizacion){
    console.log(cotizacion)
-   var anioRecibido = document.getElementById("exampleFormControlSelect3").value;
+   var anioRecibido = $("#exampleFormControlSelect3").val();
    cotizacionTotal = (cotizacion/17) + (anioRecibido*0.4)
    console.log("El precio de tu seguro es " + cotizacionTotal);
-/* 
-   var parrafo = document.createElement("p");
-   parrafo.innerHTML="El precio de tu seguro es " + cotizacionTotal.toFixed(2);
-   document.body.appendChild(parrafo) */
-   /* document.getElementById("botonCotizar").style.backgroundColor = "red"; */
 
-   document.getElementById("contenedorPosition").style.position = "relative"
-    var precioUno = document.getElementById("precioUno");
-    var precioDos = document.getElementById("precioDos");
-    var precioTres = document.getElementById("precioTres");
+
+   $("#contenedorPosition").css("position", "relative")
+    var precioUno = $("#precioUno");
+    var precioDos = $("#precioDos");
+    var precioTres = $("#precioTres");
     
-   precioUno.innerHTML="$ " + cotizacionTotal.toFixed(2);
-   precioDos.innerHTML="$ " + (cotizacionTotal * 1.10).toFixed(2);
-   precioTres.innerHTML="$ " + (cotizacionTotal * 1.20).toFixed(2);
+   precioUno[0].innerHTML="$ " + cotizacionTotal.toFixed(2);
+   precioDos[0].innerHTML="$ " + (cotizacionTotal * 1.10).toFixed(2);
+   precioTres[0].innerHTML="$ " + (cotizacionTotal * 1.20).toFixed(2);
 
-   var cambiarTexto = document.getElementById("botonCotizar")
-   if(cambiarTexto.innerHTML == "Cotizar"){
-   cambiarTexto.innerHTML = "Volver"
+   var cambiarTexto = $("#botonCotizar")
+   if(cambiarTexto[0].innerHTML == "Cotizar"){
+   cambiarTexto[0].innerHTML = "Volver"
    
    } else {
-      cambiarTexto.innerHTML = "Cotizar"
-      document.getElementById("contenedorPosition").style.position = "fixed"; 
+      cambiarTexto[0].innerHTML = "Cotizar"
+      $("#contenedorPosition").css("position", "fixed"); 
    }
       ////ACA PODRIA HACER UN IF, PARA QUE VUELVA ATRAS Y SE PONGA FIXED DENUEVO    
 }
 
-document.getElementById("botonRecuperar").addEventListener("click", recuperarUsuario);
+$("#botonRecuperar").click(recuperarUsuario);
 
 function recuperarUsuario(){
    var nombreCargar= prompt("que nombre queres cargar");
@@ -247,31 +233,24 @@ function recuperarUsuario(){
    console.log(carritoGuardado.productos[3])
 
 
-   marca = document.getElementById("exampleFormControlSelect1");
-   modelo = document.getElementById("exampleFormControlSelect2");
-   anio = document.getElementById("exampleFormControlSelect3");
-   nombre = document.getElementById("nombre");
-   apellido = document.getElementById("apellido");
-   telefono = document.getElementById("telefono");
-   email = document.getElementById("email");
-   edad = document.getElementById("edad");
+   var marca = $("#exampleFormControlSelect1");
+   var modelo = $("#exampleFormControlSelect2");
+   var anio = $("#exampleFormControlSelect3");
+   var nombre = $("#nombre");
+   var apellido = $("#apellido");
+   var telefono = $("#telefono");
+   var email = $("#email");
+   var edad = $("#edad");
 
-   marca.value = carritoGuardado.productos[0];
+   marca[0].value = carritoGuardado.productos[0];
    buscarModelos();
-   modelo.value = carritoGuardado.productos[1];
+   modelo[0].value = carritoGuardado.productos[1];
    buscarAnios();
-   anio.value = carritoGuardado.productos[2];
-   nombre.value = carritoGuardado.productos[3];
-   apellido.value = carritoGuardado.productos[4];
-   telefono.value = carritoGuardado.productos[5];
-   email.value = carritoGuardado.productos[6];
-   edad.value = carritoGuardado.productos[7];
-   
-   
-   
-   
-   
-   
-   
+   anio[0].value = carritoGuardado.productos[2];
+   nombre[0].value = carritoGuardado.productos[3];
+   apellido[0].value = carritoGuardado.productos[4];
+   telefono[0].value = carritoGuardado.productos[5];
+   email[0].value = carritoGuardado.productos[6];
+   edad[0].value = carritoGuardado.productos[7];
 
 }
