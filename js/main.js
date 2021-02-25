@@ -64,6 +64,26 @@ quintoAuto = new Autos("FIAT", [
 BaseDatosAuto = [primerAuto, segundoAuto, tercerAuto, cuartoAuto, quintoAuto];
 
 
+/* $.get( "https://private-anon-7b9f17a56e-carsapi1.apiary-mock.com/manufacturers",
+function (data){
+   DatosDeAutos = []
+   for (i=0 ; i < data.length ; i++){
+    
+
+    DatosDeAutos.push(data[i].name.toUpperCase());
+    
+   }
+ 
+  
+
+
+ for (var i = 0; i < DatosDeAutos.length; i++) {
+   var option = document.createElement("option"); //Creamos la opcion
+   option.innerHTML = DatosDeAutos[i]; //Metemos el texto en la opción
+   $(select).append(option); //Metemos la opción en el select
+} 
+}
+) */
 var select = $("#exampleFormControlSelect1"); //Seleccionamos el select
 
 for (var i = 0; i < BaseDatosAuto.length; i++) {
@@ -74,12 +94,13 @@ for (var i = 0; i < BaseDatosAuto.length; i++) {
 
 
 
+
 function buscarModelos(){
    //ESTA FUNCION RECORRE EL ARRAY MARCAS, BUSCANDO UNA COINCIDENCIA EN EL VALOR INGRESADO. CUANDO LO ENCUENTRA, ENVIA LA POSICION DEL ARRAY
 
 var buscarMarca = $("#exampleFormControlSelect1").val()
    
-
+    //VACIO EL SELECT
 
    for (i=0; i<BaseDatosAuto.length; i++){ // ESTE FOR , BUSCA UNA COINCIDENCIA ENTRE LAS 5 MARCAS Y LO QUE ESCRIBIO EL NUMERO, CUANDO LO ENCUENTRA, LO DEVUELVE A RECBIR MODELO
       if(buscarMarca == BaseDatosAuto[i].marca){
@@ -92,7 +113,11 @@ var buscarMarca = $("#exampleFormControlSelect1").val()
 function recibirModelos(numero){ //ESTA FUNCION RECIBE EL VALOR DE BUSCARMODELOS Y DEVUELVE LOS MODELOS CORRESPONDIENTES A ESA MARCA
    var select = $("#exampleFormControlSelect2"); //Seleccionamos el select padre
 
-   select.innerHTML="" //VACIO EL SELECT
+   select[0].innerHTML=""
+   
+   var optionSeleccionar = document.createElement("option"); //Creamos la opcion
+            optionSeleccionar.innerHTML = "SELECCIONAR"; //Metemos el texto en la opción
+            $(select).append(optionSeleccionar); //Metemos la opción en el select
    
 
     for (var i = 0; i < BaseDatosAuto[numero].modelo.length; i++) {
@@ -125,7 +150,10 @@ function recibirAnios(numeroModelo, numeroAnio){// ESTA FUNCION RECIBE 2 COORDEN
    
    var select = $("#exampleFormControlSelect3"); //Seleccionamos el select padre
         
-      select.innerHTML="" //VACIO EL SELECT
+      select[0].innerHTML="" //VACIO EL SELECT
+      var optionSeleccionar = document.createElement("option"); //Creamos la opcion
+            optionSeleccionar.innerHTML = "SELECCIONAR"; //Metemos el texto en la opción
+            $(select).append(optionSeleccionar);
         
 
          for (var i = 0; i < BaseDatosAuto[numeroModelo].modelo[numeroAnio].anios.length; i++) {
@@ -204,7 +232,7 @@ function realizarCotizacion(cotizacion){
    console.log("El precio de tu seguro es " + cotizacionTotal);
 
 
-   $("#contenedorPosition").css("position", "relative")
+   /* $("#contenedorPosition").css("position", "relative") */
     var precioUno = $("#precioUno");
     var precioDos = $("#precioDos");
     var precioTres = $("#precioTres");
@@ -219,15 +247,72 @@ function realizarCotizacion(cotizacion){
    
    } else {
       cambiarTexto[0].innerHTML = "Cotizar"
-      $("#contenedorPosition").css("position", "fixed"); 
+     
    }
-      ////ACA PODRIA HACER UN IF, PARA QUE VUELVA ATRAS Y SE PONGA FIXED DENUEVO    
+   $("#contenedorPosition").slideToggle();
+   
+        $('html, body').animate({
+           scrollTop: $(document).height()
+        }, 1100);
+        
+        ///prueba API
+        $.get( "https://private-anon-7b9f17a56e-carsapi1.apiary-mock.com/cars",
+        function(data){
+           for (i=0 ; i < data.length ; i++)
+            console.log(data[i].make);
+            
+            return data;
+            
+        }
+        
+    );
+    
+}
+
+$("#tablaSuperior").click(abrirTabla);
+
+function abrirTabla(){
+   $("#tablaInferior").slideToggle();
+
+   $('html, body').animate({
+      scrollTop: $(document).height()
+   }, 1100);
+   
+       
+}
+
+$("#tablaSuperiorDos").click(abrirTablaDos);
+
+function abrirTablaDos(){
+   $("#tablaInferiorDos").slideToggle();
+
+   $('html, body').animate({
+      scrollTop: $(document).height()
+   }, 1100);
+   
+       
+}
+
+$("#tablaSuperiorTres").click(abrirTablaTres);
+
+function abrirTablaTres(){
+   $("#tablaInferiorTres").slideToggle();
+
+   $('html, body').animate({
+      scrollTop: $(document).height()
+   }, 1100);
+   
+       
 }
 
 $("#botonRecuperar").click(recuperarUsuario);
 
 function recuperarUsuario(){
-   var nombreCargar= prompt("que nombre queres cargar");
+   
+   var nombreCargar= $("#exampleModalLabel").val()
+   $("#exampleModal").modal("toggle")
+
+
    var carritoGuardado = JSON.parse( sessionStorage.getItem(nombreCargar));
    console.log(carritoGuardado)
    console.log(carritoGuardado.productos[3])

@@ -92,10 +92,12 @@
   background-color: #203d7c;
   font-size: 150%;
   width: 200px; 
-  margin-bottom: 30px;}
-
-
-  
+  margin-bottom: 30px;
+  margin-top: 20px;
+}
+#botonRecuperar{
+  background-color: #203d7c;
+}
 
   /* ACA EMPIEZA EL FORMULARIO DE ABAJO */
   
@@ -107,7 +109,12 @@
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  position: fixed;
+  
+}
+
+.contenedorDosPosition{
+  display:none;
+  scroll-behavior: smooth;
 }
 
 .tabla{
@@ -137,12 +144,12 @@
 
 .tabla > p{
   display: block;
-  margin-bottom:20px;
+  margin-bottom: 7px;
 }
 
 .boton{
   display:inline-block;
-  width: 150px;
+  
   padding:12px;
   background: #203d7c;
   text-decoration: none;
@@ -191,3 +198,37 @@
   width: 8%!important;
 
 }
+
+.tabla{
+  margin-top: 15px;
+  
+}
+
+#tablaInferior{
+display: none;
+margin-bottom: 15px;
+}
+
+#tablaInferiorDos{
+  display: none;
+  margin-bottom: 15px;
+  }
+
+#tablaInferiorTres{
+  display: none;
+  margin-bottom: 20px;
+  }
+
+#tablaSuperior{
+  margin-bottom: 15px;
+}  
+
+
+#tablaSuperiorDos{
+  margin-bottom: 15px;
+}  
+
+
+#tablaSuperiorTres{
+  margin-bottom: 15px;
+}  
