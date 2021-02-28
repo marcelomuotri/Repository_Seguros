@@ -63,14 +63,14 @@ quintoAuto = new Autos("FIAT", [
 
 BaseDatosAuto = [primerAuto, segundoAuto, tercerAuto, cuartoAuto, quintoAuto];
 
-
-/* $.get( "https://private-anon-7b9f17a56e-carsapi1.apiary-mock.com/manufacturers",
+var select = $("#exampleFormControlSelect1"); //Seleccionamos el select
+ $.get( "https://private-anon-7b9f17a56e-carsapi1.apiary-mock.com/manufacturers",
 function (data){
    DatosDeAutos = []
    for (i=0 ; i < data.length ; i++){
     
 
-    DatosDeAutos.push(data[i].name.toUpperCase());
+    DatosDeAutos.push(data[i].name);
     
    }
  
@@ -82,16 +82,7 @@ function (data){
    option.innerHTML = DatosDeAutos[i]; //Metemos el texto en la opción
    $(select).append(option); //Metemos la opción en el select
 } 
-}
-) */
-var select = $("#exampleFormControlSelect1"); //Seleccionamos el select
-
-for (var i = 0; i < BaseDatosAuto.length; i++) {
-   var option = document.createElement("option"); //Creamos la opcion
-   option.innerHTML = BaseDatosAuto[i].marca; //Metemos el texto en la opción
-   $(select).append(option); //Metemos la opción en el select
-}
-
+})
 
 
 
@@ -99,72 +90,38 @@ function buscarModelos(){
    //ESTA FUNCION RECORRE EL ARRAY MARCAS, BUSCANDO UNA COINCIDENCIA EN EL VALOR INGRESADO. CUANDO LO ENCUENTRA, ENVIA LA POSICION DEL ARRAY
 
 var buscarMarca = $("#exampleFormControlSelect1").val()
-   
+var select = $("#exampleFormControlSelect2");
+$.get( "https://private-anon-7b9f17a56e-carsapi1.apiary-mock.com/cars",
+function (data){
+   modelosDeAutos = []
+    modelosDeAutos.push(data);
+    
+    select[0].innerHTML=""
+         
+         var optionSeleccionar = document.createElement("option"); //Creamos la opcion
+                  optionSeleccionar.innerHTML = "SELECCIONAR"; //Metemos el texto en la opción
+                  $(select).append(optionSeleccionar); //Metemos la opción en el select
+           
     //VACIO EL SELECT
 
-   for (i=0; i<BaseDatosAuto.length; i++){ // ESTE FOR , BUSCA UNA COINCIDENCIA ENTRE LAS 5 MARCAS Y LO QUE ESCRIBIO EL NUMERO, CUANDO LO ENCUENTRA, LO DEVUELVE A RECBIR MODELO
-      if(buscarMarca == BaseDatosAuto[i].marca){
-      recibirModelos(i);
-      }
+   for (i=0; i< modelosDeAutos[0].length; i++){ // ESTE FOR , BUSCA UNA COINCIDENCIA ENTRE LAS 5 MARCAS Y LO QUE ESCRIBIO EL NUMERO, CUANDO LO ENCUENTRA, LO DEVUELVE A RECBIR MODELO
+      if(buscarMarca == modelosDeAutos[0][i].make){
+         console.log(modelosDeAutos[0][i].model)
+          
+               var option = document.createElement("option"); //Creamos la opcion
+               option.innerHTML = modelosDeAutos[0][i].model; //Metemos el texto en la opción
+               $(select).append(option); //Metemos la opción en el select
+                     
+            }
+
    }
-   
+
+}
+)
 }
    
-function recibirModelos(numero){ //ESTA FUNCION RECIBE EL VALOR DE BUSCARMODELOS Y DEVUELVE LOS MODELOS CORRESPONDIENTES A ESA MARCA
-   var select = $("#exampleFormControlSelect2"); //Seleccionamos el select padre
-
-   select[0].innerHTML=""
-   
-   var optionSeleccionar = document.createElement("option"); //Creamos la opcion
-            optionSeleccionar.innerHTML = "SELECCIONAR"; //Metemos el texto en la opción
-            $(select).append(optionSeleccionar); //Metemos la opción en el select
-   
-
-    for (var i = 0; i < BaseDatosAuto[numero].modelo.length; i++) {
-       var option = document.createElement("option"); //Creamos la opcion
-       option.innerHTML = BaseDatosAuto[numero].modelo[i].modelo; //Metemos el texto en la opción
-       $(select).append(option); //Metemos la opción en el select
-       }   
-   }
-
-
 $("#exampleFormControlSelect1").change ( buscarModelos)
-
    
-   
-///////////// funcion para tomar modelos y cargar anio
-
-function buscarAnios() { // ESTA FUNCION RECORRE TODOS LOS MODELOS Y CUANDO ENCUENTRA EL QUE COINCIDE CON EL TEXTO INGRESADO POR EL USUARIO, ENVIA LAS COORDENADAS A RECIBIRANIOS
-
-   var buscarAnio = $("#exampleFormControlSelect2").val();
-   //ESTE ES UN FOR DENTRO DE OTRO, EL DE AFUERA RECORRE UNA MARCA Y DENTRO RECORRE LOS MODELOS DE ESA MARCA, SI EL MODELO NO COINCIDE, EL FOR GRANDE PASA A LA SIGUIENTE MARCA Y ASI LOS VA BUSCANDO, CUANDO ENCUENTRA, DEVUELVE LAS COORDENADAS
-   for(j=0; j<BaseDatosAuto.length; j++)   
-      for (i=0; i<5; i++){ // TOTAL DE AUTOS
-         if(buscarAnio == BaseDatosAuto[j].modelo[i].modelo){
-         recibirAnios(j,i);
-         }
-      }
-   }   
-
-function recibirAnios(numeroModelo, numeroAnio){// ESTA FUNCION RECIBE 2 COORDENADAS PARA IR A BUSCAR LOS ANIOS DE LA MARCA Y MODELO QUE RECIBE
-   
-   var select = $("#exampleFormControlSelect3"); //Seleccionamos el select padre
-        
-      select[0].innerHTML="" //VACIO EL SELECT
-      var optionSeleccionar = document.createElement("option"); //Creamos la opcion
-            optionSeleccionar.innerHTML = "SELECCIONAR"; //Metemos el texto en la opción
-            $(select).append(optionSeleccionar);
-        
-
-         for (var i = 0; i < BaseDatosAuto[numeroModelo].modelo[numeroAnio].anios.length; i++) {
-            var option = document.createElement("option"); //Creamos la opcion
-            option.innerHTML = BaseDatosAuto[numeroModelo].modelo[numeroAnio].anios[i]; //Metemos el texto en la opción
-            $(select).append(option); //Metemos la opción en el select
-         }
-   }
-
-//evento para buscar anios de cada modelo
-$("#exampleFormControlSelect2").change(buscarAnios)
    
 
 /////////////evento click para el boton
@@ -176,7 +133,7 @@ function guardarCompra(){
    
    var marca = $("#exampleFormControlSelect1").val();
    var modelo = $("#exampleFormControlSelect2").val();
-   var anio = $("#exampleFormControlSelect3").val();
+   var anio = $("#campoAnio").val();
    var nombre = $("#nombre").val();
    var apellido = $("#apellido").val();
    var telefono = $("#telefono").val();
@@ -199,36 +156,25 @@ function guardarCompra(){
 
 function buscarModelosDos() { 
    guardarCompra();
-   var buscarMarca = $("#exampleFormControlSelect1").val();
+   var buscarMarca = $("#exampleFormControlSelect2").val();
 
-   for (i=0; i<BaseDatosAuto.length; i++){ // SON PARECIDAS A LAS FUNCIONES DE ARRIBA, ESTA ME VA A BUSCAR EL QUE POSICION DEL ARRAY ESTA LA MARCA
-      if(buscarMarca == BaseDatosAuto[i].marca){      
+   for (i=0; i<modelosDeAutos[0].length; i++){ // SON PARECIDAS A LAS FUNCIONES DE ARRIBA, ESTA ME VA A BUSCAR EL QUE POSICION DEL ARRAY ESTA LA MARCA
+      if(buscarMarca == modelosDeAutos[0][i].model){
          
-         recibirModelosDos(i);
-      
+      console.log("lo encontre")   
+      precioCotizacion = (modelosDeAutos[0][i].price)   
+      realizarCotizacion(precioCotizacion)
+        
       }
    }
 }
 
-function recibirModelosDos(numero){ 
-
-   var buscarModelo = $("#exampleFormControlSelect2").val();
-   
-
-    for (var i = 0; i < BaseDatosAuto[numero].modelo.length; i++) { // Y ESTA ME VA A BUSCAR EN QUE POSICION ESTA EL MODELO
-          
-       if (buscarModelo == BaseDatosAuto[numero].modelo[i].modelo){
-       numeroCotizacion = (BaseDatosAuto[numero].modelo[i].valor);   
-       realizarCotizacion(numeroCotizacion);
-       }
-       
-      }
-   
-   }
+////////////////////////////////////////////////////// HASTA ACA
 function realizarCotizacion(cotizacion){
+   var anioRecibido = parseInt($("#campoAnio").val());
+   console.log(anioRecibido)
+   cotizacionTotal = (cotizacion/17) + (anioRecibido)
    console.log(cotizacion)
-   var anioRecibido = $("#exampleFormControlSelect3").val();
-   cotizacionTotal = (cotizacion/17) + (anioRecibido*0.4)
    console.log("El precio de tu seguro es " + cotizacionTotal);
 
 
@@ -256,16 +202,8 @@ function realizarCotizacion(cotizacion){
         }, 1100);
         
         ///prueba API
-        $.get( "https://private-anon-7b9f17a56e-carsapi1.apiary-mock.com/cars",
-        function(data){
-           for (i=0 ; i < data.length ; i++)
-            console.log(data[i].make);
-            
-            return data;
-            
-        }
         
-    );
+    
     
 }
 
@@ -329,8 +267,7 @@ function recuperarUsuario(){
 
    marca[0].value = carritoGuardado.productos[0];
    buscarModelos();
-   modelo[0].value = carritoGuardado.productos[1];
-   buscarAnios();
+   modelo[0].value = carritoGuardado.productos[1]; 
    anio[0].value = carritoGuardado.productos[2];
    nombre[0].value = carritoGuardado.productos[3];
    apellido[0].value = carritoGuardado.productos[4];
