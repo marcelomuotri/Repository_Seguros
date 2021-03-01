@@ -86,16 +86,22 @@ function (data){
 
 
 
-function buscarModelos(){
+function cargarBase(){
    //ESTA FUNCION RECORRE EL ARRAY MARCAS, BUSCANDO UNA COINCIDENCIA EN EL VALOR INGRESADO. CUANDO LO ENCUENTRA, ENVIA LA POSICION DEL ARRAY
 
-var buscarMarca = $("#exampleFormControlSelect1").val()
-var select = $("#exampleFormControlSelect2");
+
 $.get( "https://private-anon-7b9f17a56e-carsapi1.apiary-mock.com/cars",
 function (data){
    modelosDeAutos = []
     modelosDeAutos.push(data);
-    
+    return modelosDeAutos;
+})}
+
+function buscarModelos(){
+
+   var buscarMarca = $("#exampleFormControlSelect1").val()
+   var select = $("#exampleFormControlSelect2");
+
     select[0].innerHTML=""
          
          var optionSeleccionar = document.createElement("option"); //Creamos la opcion
@@ -106,7 +112,6 @@ function (data){
 
    for (i=0; i< modelosDeAutos[0].length; i++){ // ESTE FOR , BUSCA UNA COINCIDENCIA ENTRE LAS 5 MARCAS Y LO QUE ESCRIBIO EL NUMERO, CUANDO LO ENCUENTRA, LO DEVUELVE A RECBIR MODELO
       if(buscarMarca == modelosDeAutos[0][i].make){
-         console.log(modelosDeAutos[0][i].model)
           
                var option = document.createElement("option"); //Creamos la opcion
                option.innerHTML = modelosDeAutos[0][i].model; //Metemos el texto en la opción
@@ -117,9 +122,9 @@ function (data){
    }
 
 }
-)
-}
-   
+
+
+cargarBase();///cargo la base de datos
 $("#exampleFormControlSelect1").change ( buscarModelos)
    
    
@@ -136,7 +141,7 @@ function guardarCompra(){
    var anio = $("#campoAnio").val();
    var nombre = $("#nombre").val();
    var apellido = $("#apellido").val();
-   var telefono = $("#telefono").val();
+   var telefono = $("#telefonoGuardado").val();
    var email = $("#email").val();
    var edad = $("#edad").val();
 
@@ -161,7 +166,7 @@ function buscarModelosDos() {
    for (i=0; i<modelosDeAutos[0].length; i++){ // SON PARECIDAS A LAS FUNCIONES DE ARRIBA, ESTA ME VA A BUSCAR EL QUE POSICION DEL ARRAY ESTA LA MARCA
       if(buscarMarca == modelosDeAutos[0][i].model){
          
-      console.log("lo encontre")   
+       
       precioCotizacion = (modelosDeAutos[0][i].price)   
       realizarCotizacion(precioCotizacion)
         
@@ -243,8 +248,13 @@ function abrirTablaTres(){
        
 }
 
-$("#botonRecuperar").click(recuperarUsuario);
 
+function tiempo (){
+   
+}
+
+$("#botonRecuperar").click(recuperarUsuario);
+//con este boton recupero los datos guardados en el local Storage y lo cargo en los campos nuevamente
 function recuperarUsuario(){
    
    var nombreCargar= $("#exampleModalLabel").val()
@@ -252,22 +262,23 @@ function recuperarUsuario(){
 
 
    var carritoGuardado = JSON.parse( sessionStorage.getItem(nombreCargar));
-   console.log(carritoGuardado)
-   console.log(carritoGuardado.productos[3])
-
+   
 
    var marca = $("#exampleFormControlSelect1");
    var modelo = $("#exampleFormControlSelect2");
-   var anio = $("#exampleFormControlSelect3");
+   var anio = $("#campoAnio");
    var nombre = $("#nombre");
    var apellido = $("#apellido");
-   var telefono = $("#telefono");
+   var telefono = $("#telefonoGuardado");
    var email = $("#email");
    var edad = $("#edad");
 
    marca[0].value = carritoGuardado.productos[0];
-   buscarModelos();
-   modelo[0].value = carritoGuardado.productos[1]; 
+   cargarBase()
+   buscarModelos()
+   
+   modelo[0].value = carritoGuardado.productos[1]
+
    anio[0].value = carritoGuardado.productos[2];
    nombre[0].value = carritoGuardado.productos[3];
    apellido[0].value = carritoGuardado.productos[4];
@@ -275,4 +286,5 @@ function recuperarUsuario(){
    email[0].value = carritoGuardado.productos[6];
    edad[0].value = carritoGuardado.productos[7];
 
+   
 }
