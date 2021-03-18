@@ -1,4 +1,7 @@
 /* MARGEN SUPERIOR */
+body{
+  line-height: 2;
+}
 .margenSuperior {
   background-color: #203d7c;
   width: 100%;
@@ -70,6 +73,14 @@
 .row {
   margin-left: 0px;
   margin-right: 25px; }
+
+.cuadradito{
+  width: 300px;
+  height: 199px;
+  position:absolute;
+  margin-left: 1025px;
+  ;
+}  
 
 .contenedorForm {
   background-color: #f2f2f2;
@@ -149,7 +160,6 @@
 
 .boton{
   display:inline-block;
-  
   padding:12px;
   background: #203d7c;
   text-decoration: none;
@@ -232,3 +242,90 @@ margin-bottom: 15px;
 #tablaSuperiorTres{
   margin-bottom: 15px;
 }  
+
+
+.contenedorUnoIzq{
+  width: 450px;
+  max-height: 300px;
+  text-align: center;
+  border-radius: 5px;
+  border: grey 1px solid;
+  border-color: #203d7c;
+  font-family: Work Sans;
+  margin-left: 15px;
+
+}
+
+.contenedorUnoDer{
+  width: 550px;
+  max-height: 300px;
+  border-radius: 5px;
+  border: grey 1px solid;
+  border-color: #203d7c;
+  font-family: Work Sans;
+  margin-left: 15px;
+
+}
+
+.tituloContenedorUno{
+  font-weight: bold;
+  font-size: 22px;
+  color: #343759;
+  margin-top: 7px;
+}
+
+.contenedorUno p{
+  margin-bottom: 11px;
+  font-size: 18px;
+}
+
+
+.etiquetita{
+  position: absolute;
+  margin-top: 35px;
+  margin-left: 10px;
+  width: 60%;
+  border-radius: 10px;
+  background-color: white;
+  border: 0.5px solid grey;
+  
+}
+
+.row{
+  margin-bottom: 15px;
+}
+
+
+.tooltip-one {
+  padding-right: 15px;
+  padding-left: 15px;
+  background: #fff;
+  position: absolute;
+  min-width: 150px;
+  max-width: 280px;
+  border-radius: 5px;
+  text-align: center;
+  filter: drop-shadow(0 3px 5px #ccc);
+  line-height: 1.5;
+  margin-top: -30px;
+  margin-left: 100px;
+  background-color: #fcc6df;
+  visibility: hidden;
+
+}
+
+.tooltip-one:after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  margin-left: -3px;
+  width: 12px;
+  height: 12px;
+  background: white;
+  transform: rotate(45deg);
+  background-color: #fcc6df;
+}
+
+
+

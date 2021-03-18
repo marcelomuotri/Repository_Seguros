@@ -1,3 +1,6 @@
+body{
+    font-family: Work Sans;
+}
 .textos{
     font-family:  Work Sans;
 }
@@ -115,6 +118,14 @@
     background-color: #203d7c;
     font-size: 150%;
     width: 200px;
+}
+
+.contenedorUno p{
+    font-size: 50px;
+}
+.valorAsegurado{
+    font-family: Work Sans;
+    font-size: 50px;
 }
 
     
